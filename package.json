@@ -1,0 +1,46 @@
+{
+  "name": "vue-error-boundary",
+  "description": "Simple and convenient Vue error boundary, supporting vue2 and vue3.",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "vue-tsc --noEmit && vite build"
+  },
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xyhxx/vue-error-boundary.git"
+  },
+  "author": "xyhxx(603331487@qq.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xyhxx/vue-error-boundary/issues"
+  },
+  "homepage": "https://github.com/xyhxx/vue-error-boundary#readme",
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.3",
+    "eslint": "^8.15.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-proste": "^2.10.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-vue": "^8.7.1",
+    "prettier": "^2.6.2",
+    "typescript": "^4.6.4",
+    "vite": "^2.9.9",
+    "vite-plugin-dts": "^1.1.1",
+    "vitest": "^0.10.5",
+    "vue": "^3.2.34",
+    "vue-eslint-parser": "^8.3.0",
+    "vue-tsc": "^0.34.15"
+  },
+  "peerDependencies": {
+    "vue": ">=3.0.0"
+  }
+}
