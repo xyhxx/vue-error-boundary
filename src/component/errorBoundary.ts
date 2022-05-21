@@ -11,8 +11,6 @@ const ErrorBoundaryComponent = defineComponent({
     const error = ref<Error | null>(null);
     const hasError = ref(false);
 
-    console.warn(onErrorCaptured);
-
     onErrorCaptured(function (err, instance, info) {
       error.value = err;
       hasError.value = true;
