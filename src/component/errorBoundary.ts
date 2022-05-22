@@ -7,7 +7,7 @@ const ErrorBoundaryComponent = defineComponent({
     propagation: { type: Boolean, default: false },
   },
   emits: ['errorCaputred'],
-  setup(props, { slots, emit }) {
+  setup({ propagation }, { slots, emit }) {
     const error = ref<Error | null>(null);
     const hasError = ref(false);
 
@@ -17,7 +17,7 @@ const ErrorBoundaryComponent = defineComponent({
 
       emit('errorCaputred', { error: err, instance, info });
 
-      return props.propagation;
+      return propagation;
     });
 
     function reset() {

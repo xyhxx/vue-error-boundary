@@ -1,10 +1,16 @@
 {
-  "name": "vue-error-boundary",
-  "description": "Simple and convenient Vue error boundary, supporting vue2 and vue3.",
+  "name": "vue3-error-boundary",
+  "description": "Simple and convenient Vue error boundary.",
   "version": "1.0.0",
   "scripts": {
     "build": "vue-tsc --noEmit && vite build"
   },
+  "keywords": [
+    "vue",
+    "vue3",
+    "error-boundary",
+    "vue-error-boundary"
+  ],
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
   "exports": {

@@ -1,1 +1,1 @@
-export { ErrorBoundary as default } from './component/errorBoundary';
+export * from './component/errorBoundary';
