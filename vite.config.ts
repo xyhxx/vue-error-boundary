@@ -11,6 +11,7 @@ export default defineConfig({
     }),
   ],
   build: {
+    target: 'esnext',
     lib: {
       entry: './src/index.ts',
       name: 'VueErrorBoundary',
