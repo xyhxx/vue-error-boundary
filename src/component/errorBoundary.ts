@@ -9,11 +9,9 @@ const ErrorBoundaryComponent = defineComponent({
   emits: ['errorCaputred'],
   setup({ propagation }, { slots, emit }) {
     const error = ref<Error | null>(null);
-    const hasError = ref(false);
 
     onErrorCaptured(function (err, instance, info) {
       error.value = err;
-      hasError.value = true;
 
       emit('errorCaputred', { error: err, instance, info });
 
@@ -21,12 +19,13 @@ const ErrorBoundaryComponent = defineComponent({
     });
 
     function reset() {
-      hasError.value = false;
       error.value = null;
     }
 
     return function () {
-      return !hasError.value ? slots.default?.() : slots.fallback?.({ error: error.value, reset });
+      return error.value === null
+        ? slots.default?.()
+        : slots.fallback?.({ error: error.value, reset });
     };
   },
 });
