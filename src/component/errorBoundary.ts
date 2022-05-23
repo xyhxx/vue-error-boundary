@@ -4,8 +4,6 @@ export type VueErrorBoundaryProps = {
   propagation?: boolean;
   include?: string[];
   exclude?: string[];
-  includeType?: string[];
-  excludeType?: string[];
   keepEmit?: boolean;
 };
 
@@ -27,44 +25,26 @@ const ErrorBoundaryComponent = defineComponent({
     propagation: { type: Boolean, default: false },
     include: Array,
     exclude: Array,
-    includeType: Array,
-    excludeType: Array,
     keepEmit: { type: Boolean, default: false },
   },
   emits: ['errorCaputred'],
-  setup({ propagation, include, exclude, includeType, excludeType, keepEmit }, { slots, emit }) {
+  setup({ propagation, include, exclude, keepEmit }, { slots, emit }) {
     const error = ref<Error | null>(null);
-
     onErrorCaptured(function (err, instance, info) {
       const { name, message } = err;
 
-      const includeState = /*   */ 0x0001,
-        excludeState = /*       */ 0x0010,
-        includeTypeState = /*   */ 0x0100,
-        excludeTypeState = /*   */ 0x1000,
-        capturedState = /*      */ 0x1111;
+      let includeState = true,
+        excludeState = true;
 
-      let sign = 0x0000;
-
-      if (!include && !exclude && !includeType && !excludeType) {
-        sign = capturedState;
-      } else {
-        switch (true) {
-          case !!include:
-            include!.includes(message) && (sign |= includeState);
-
-          case !!exclude:
-            !exclude!.includes(message) && (sign |= excludeState);
-
-          case !!includeType:
-            includeType!.includes(name) && (sign |= includeTypeState);
-
-          case !!excludeType:
-            !excludeType!.includes(name) && (sign |= excludeTypeState);
-        }
+      if (include) {
+        includeState = (include as string[]).some(item => name === item || message === item);
       }
 
-      const captured = sign === capturedState;
+      if (exclude) {
+        excludeState = (exclude as string[]).every(item => name !== item && message !== item);
+      }
+
+      const captured = includeState && excludeState;
 
       if (captured) {
         error.value = err;
