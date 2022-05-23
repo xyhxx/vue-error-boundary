@@ -2,8 +2,8 @@ import { ComponentPublicInstance, defineComponent, onErrorCaptured, ref, VNode }
 
 export type VueErrorBoundaryProps = {
   propagation?: boolean;
-  include?: string[];
-  exclude?: string[];
+  include?: string[] | RegExp;
+  exclude?: string[] | RegExp;
   keepEmit?: boolean;
 };
 
@@ -20,11 +20,10 @@ export type VueErrorBoundaryEmit = {
 
 const ErrorBoundaryComponent = defineComponent({
   name: 'VueErrorBoundary',
-  inheritAttrs: false,
   props: {
     propagation: { type: Boolean, default: false },
-    include: Array,
-    exclude: Array,
+    include: [Array, RegExp],
+    exclude: [Array, RegExp],
     keepEmit: { type: Boolean, default: false },
   },
   emits: ['errorCaputred'],
@@ -37,11 +36,19 @@ const ErrorBoundaryComponent = defineComponent({
         excludeState = true;
 
       if (include) {
-        includeState = (include as string[]).some(item => name === item || message === item);
+        if (Array.isArray(include)) {
+          includeState = (include as string[]).some(item => name === item || message === item);
+        } else {
+          includeState = include.test(message);
+        }
       }
 
       if (exclude) {
-        excludeState = (exclude as string[]).every(item => name !== item && message !== item);
+        if (Array.isArray(exclude)) {
+          excludeState = (exclude as string[]).every(item => name !== item && message !== item);
+        } else {
+          excludeState = !exclude.test(message);
+        }
       }
 
       const captured = includeState && excludeState;
@@ -53,6 +60,8 @@ const ErrorBoundaryComponent = defineComponent({
       if (captured || (!captured && keepEmit)) {
         emit('errorCaputred', { error: err, instance, info });
       }
+
+      if (!captured) return true;
 
       return propagation;
     });
