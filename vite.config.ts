@@ -10,6 +10,11 @@ export default defineConfig({
       exclude: ['**/node_modules/**', '**/dist/**', '**/env.d.ts'],
     }),
   ],
+  test: {
+    include: ['__tests__/*.test.ts'],
+    environment: 'jsdom',
+    globals: true,
+  },
   build: {
     target: 'esnext',
     lib: {

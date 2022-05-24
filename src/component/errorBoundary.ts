@@ -9,13 +9,18 @@ export type VueErrorBoundaryProps = {
 
 export type ErrorBoundaryProps = {
   error: Error;
-  instance: ComponentPublicInstance | null;
-  info: string;
   reset: () => void;
 };
 
 export type VueErrorBoundaryEmit = {
-  (e: 'errorCaputred', payload: Omit<ErrorBoundaryProps, 'reset'>): void;
+  (
+    e: 'errorCaputred',
+    payload: {
+      error: Error;
+      instance: ComponentPublicInstance | null;
+      info: string;
+    },
+  ): void;
 };
 
 const ErrorBoundaryComponent = defineComponent({
@@ -29,6 +34,7 @@ const ErrorBoundaryComponent = defineComponent({
   emits: ['errorCaputred'],
   setup({ propagation, include, exclude, keepEmit }, { slots, emit }) {
     const error = ref<Error | null>(null);
+
     onErrorCaptured(function (err, instance, info) {
       const { name, message } = err;
 
