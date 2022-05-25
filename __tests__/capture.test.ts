@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils';
 
 import ClickThrow from './components/click.vue';
-import ErrorBoundary from '../src/index';
 import Caputre from './components/capture.vue';
+import ErrorBoundary from '../src/index';
 
 let App: any;
 
