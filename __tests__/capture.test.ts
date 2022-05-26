@@ -2,26 +2,26 @@ import { mount } from '@vue/test-utils';
 
 import ClickThrow from './components/click.vue';
 import Caputre from './components/capture.vue';
-import ErrorBoundary from '../src/index';
+import ErrorBoundary, { ErrorBoundaryProps } from '../src';
+import { defineComponent, h } from 'vue';
 
 let App: any;
 
 describe('capture error', function () {
   beforeEach(function () {
-    App = {
-      components: {
-        ClickThrow,
-        ErrorBoundary,
-        Caputre,
+    App = defineComponent({
+      setup() {
+        return () =>
+          h(
+            ErrorBoundary,
+            {},
+            {
+              default: () => h(ClickThrow),
+              fallback: (e: ErrorBoundaryProps) => h(Caputre, e),
+            },
+          );
       },
-      template: `<ErrorBoundary>
-        <ClickThrow />
-  
-        <template #fallback="errors">
-          <Caputre v-bind="errors" />
-        </template>
-      </ErrorBoundary>`,
-    };
+    });
   });
 
   test('shoule capture error', async function () {

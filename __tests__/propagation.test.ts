@@ -1,8 +1,8 @@
-import ErrorBoundary from '../src';
+import ErrorBoundary, { ErrorBoundaryProps } from '../src';
 import ClickThrow from './components/click.vue';
 import Caputre from './components/capture.vue';
 import { mount } from '@vue/test-utils';
-import { defineComponent, onErrorCaptured } from 'vue';
+import { defineComponent, h, onErrorCaptured } from 'vue';
 
 const fn = vi.fn();
 
@@ -27,20 +27,17 @@ describe('onErrorCaptured propagation', function () {
           props.cb?.(errors);
         });
 
-        return {
-          propagation: props.propagation,
+        return function () {
+          return h(
+            ErrorBoundary,
+            { propagation: props.propagation },
+            {
+              default: () => h(ClickThrow),
+              fallback: (e: ErrorBoundaryProps) => h(Caputre, e),
+            },
+          );
         };
       },
-
-      template: `
-          <ErrorBoundary :propagation="propagation">
-            <ClickThrow />
-
-            <template #fallback="errors">
-              <Caputre v-bind="errors" />
-            </template>
-          </ErrorBoundary>
-      `,
     });
   });
 

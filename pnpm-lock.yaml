@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@types/node': ^17.0.35
   '@vitejs/plugin-vue': ^2.3.3
   '@vue/test-utils': ^2.0.0
   c8: ^7.11.3
@@ -20,6 +21,7 @@ specifiers:
   vue-tsc: ^0.34.15
 
 devDependencies:
+  '@types/node': 17.0.35
   '@vitejs/plugin-vue': 2.3.3_vite@2.9.9+vue@3.2.35
   '@vue/test-utils': 2.0.0_vue@3.2.35
   c8: 7.11.3
@@ -246,6 +248,10 @@ packages:
 
   /@types/node/12.20.24:
     resolution: {integrity: sha512-yxDeaQIAJlMav7fH5AQqPH1u8YIuhYJXYBzxaQ4PifsU0GDO38MSdmEDeRlIxrKbC6NbEaaEHDanWb+y30U8SQ==}
+    dev: true
+
+  /@types/node/17.0.35:
+    resolution: {integrity: sha512-vu1SrqBjbbZ3J6vwY17jBs8Sr/BKA+/a/WtjRG+whKg1iuLFOosq872EXS0eXWILdO36DHQQeku/ZcL6hz2fpg==}
     dev: true
 
   /@vitejs/plugin-vue/2.3.3_vite@2.9.9+vue@3.2.35:

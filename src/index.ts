@@ -1,1 +1,2 @@
-export { default } from './component/errorBoundary';
+export { default } from '@components';
+export * from '@components';

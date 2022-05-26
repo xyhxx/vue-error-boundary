@@ -12,7 +12,13 @@
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "skipLibCheck": true,
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals"],
+    "baseUrl": "./src",
+    "paths": {
+      "@src": ["./index"],
+      "@components": ["./components/index"],
+      "@utils": ["./utils/index"]
+    }
   },
   "include": ["src", "__tests__", "vite.config.ts"]
 }

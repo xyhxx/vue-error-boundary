@@ -1,22 +1,23 @@
-import ErrorBoundary from '../src';
+import ErrorBoundary, { ErrorBoundaryProps } from '../src';
 import ClickThrow from './components/click.vue';
 import Caputre from './components/capture.vue';
 import { mount } from '@vue/test-utils';
+import { defineComponent, h } from 'vue';
 
-const App = {
-  components: {
-    ClickThrow,
-    ErrorBoundary,
-    Caputre,
+const App = defineComponent({
+  setup() {
+    return function () {
+      return h(
+        ErrorBoundary,
+        {},
+        {
+          default: () => h(ClickThrow),
+          fallback: (e: ErrorBoundaryProps) => h(Caputre, e),
+        },
+      );
+    };
   },
-  template: `<ErrorBoundary>
-    <ClickThrow />
-
-    <template #fallback="errors">
-      <Caputre v-bind="errors" />
-    </template>
-  </ErrorBoundary>`,
-};
+});
 
 describe('errorboundary retry', function () {
   test('retry shoule rerender default slot', async function () {

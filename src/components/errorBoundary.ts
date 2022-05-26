@@ -1,3 +1,4 @@
+import { warn } from '@utils';
 import { ComponentPublicInstance, defineComponent, onErrorCaptured, ref, VNode } from 'vue';
 
 export type VueErrorBoundaryProps = {
@@ -12,15 +13,12 @@ export type ErrorBoundaryProps = {
   reset: () => void;
 };
 
-export type VueErrorBoundaryEmit = {
-  (
-    e: 'errorCaputred',
-    payload: {
-      error: Error;
-      instance: ComponentPublicInstance | null;
-      info: string;
-    },
-  ): void;
+export type VueErrorBoundaryEmit = (arg: VueErrorBoundaryEmitPayload) => void;
+
+export type VueErrorBoundaryEmitPayload = {
+  error: Error;
+  instance: ComponentPublicInstance | null;
+  info: string;
 };
 
 const ErrorBoundaryComponent = defineComponent({
@@ -33,6 +31,14 @@ const ErrorBoundaryComponent = defineComponent({
   },
   emits: ['errorCaputred'],
   setup({ propagation, include, exclude, keepEmit }, { slots, emit }) {
+    if (__DEV__ && !slots.default) {
+      warn('you did not provide a default slot');
+    }
+
+    if (__DEV__ && !slots.fallback) {
+      warn('you did not provide a fallback slot');
+    }
+
     const error = ref<Error | null>(null);
 
     onErrorCaptured(function (err, instance, info) {
@@ -93,7 +99,7 @@ const ErrorBoundary = ErrorBoundaryComponent as unknown as {
       fallback: (arg: ErrorBoundaryProps) => VNode[];
     };
 
-    $emit: VueErrorBoundaryEmit;
+    $emit: { (e: 'errorCaputred', payload: VueErrorBoundaryEmitPayload): void };
   };
 };
 

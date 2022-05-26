@@ -1,34 +1,65 @@
 import { defineConfig } from 'vitest/config';
 import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
+import { resolve } from 'path';
 
-export default defineConfig({
-  plugins: [
-    vue(),
-    dts({
-      cleanVueFileName: true,
-      exclude: ['**/node_modules/**', '**/dist/**', '**/env.d.ts'],
-    }),
-  ],
-  test: {
-    include: ['__tests__/*.test.ts'],
-    environment: 'jsdom',
-    globals: true,
-  },
-  build: {
-    target: 'esnext',
-    lib: {
-      entry: './src/index.ts',
-      name: 'VueErrorBoundary',
-      fileName: format => `index.${format}.js`,
+export default defineConfig(function ({ mode }) {
+  const m = mode as 'es' | 'umd';
+
+  const plugins = [vue()];
+
+  m === 'es' &&
+    plugins.push(
+      dts({
+        cleanVueFileName: true,
+        exclude: ['**/node_modules/**', '**/dist/**', '**/env.d.ts'],
+      }),
+    );
+
+  let define: Record<string, any>;
+  if (m === 'es') {
+    define = {
+      __DEV__: `(process.env.NODE_ENV !== 'production')`,
+    };
+  } else {
+    define = {
+      __DEV__: false,
+    };
+  }
+
+  return {
+    plugins,
+    define,
+    test: {
+      include: ['__tests__/*.test.ts'],
+      environment: 'jsdom',
+      globals: true,
     },
-    rollupOptions: {
-      external: ['vue'],
-      output: {
-        globals: {
-          vue: 'Vue',
+    resolve: {
+      alias: {
+        '@src': resolve(__dirname, 'src'),
+        '@components': resolve(__dirname, 'src/components'),
+        '@utils': resolve(__dirname, 'src/utils'),
+      },
+    },
+    publicDir: false,
+    build: {
+      emptyOutDir: m === 'umd',
+      target: 'esnext',
+      lib: {
+        entry: './src/index.ts',
+        formats: [m],
+        name: 'VueErrorBoundary',
+        fileName: format => `index.${format}.js`,
+      },
+      rollupOptions: {
+        external: ['vue'],
+        output: {
+          globals: {
+            vue: 'Vue',
+          },
         },
       },
     },
-  },
+  };
 });
