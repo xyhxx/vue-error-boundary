@@ -31,6 +31,10 @@ export default defineConfig(function ({ mode }) {
     plugins,
     define,
     test: {
+      coverage: {
+        include: ['src'],
+        exclude: ['src/utils/*'],
+      },
       include: ['__tests__/*.test.ts'],
       environment: 'jsdom',
       globals: true,
