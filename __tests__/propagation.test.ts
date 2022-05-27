@@ -1,4 +1,4 @@
-import ErrorBoundary, { ErrorBoundaryProps } from '../src';
+import ErrorBoundary, { ErrorBoundaryProps } from '@src';
 import ClickThrow from './components/click.vue';
 import Caputre from './components/capture.vue';
 import { mount } from '@vue/test-utils';

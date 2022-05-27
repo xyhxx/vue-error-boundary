@@ -2,11 +2,11 @@ import ErrorBoundary, {
   ErrorBoundaryProps,
   VueErrorBoundaryEmit,
   VueErrorBoundaryEmitPayload,
-} from '../src';
+} from '@src';
 import ClickThrow from './components/click.vue';
 import Caputre from './components/capture.vue';
 import { mount } from '@vue/test-utils';
-import { ComponentPublicInstance, defineComponent, h } from 'vue';
+import { defineComponent, h } from 'vue';
 
 const App = defineComponent({
   emits: ['captured'],

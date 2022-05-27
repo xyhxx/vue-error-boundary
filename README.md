@@ -5,6 +5,6 @@
 <br />
 <br />
 
-# VeBoundary
+<h1 align="center">VeBoundary</h1>
 
-Improving features
+<p align="center">Improving features</p>

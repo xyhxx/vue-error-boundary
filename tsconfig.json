@@ -20,5 +20,5 @@
       "@utils": ["./utils/index"]
     }
   },
-  "include": ["src", "__tests__", "vite.config.ts"]
+  "include": ["src", "__tests__", "vite.config.ts", "__mocks__"]
 }

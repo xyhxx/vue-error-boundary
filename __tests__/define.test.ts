@@ -1,4 +1,4 @@
-import ErrorBoundary from '../src';
+import ErrorBoundary from '@src';
 
 describe('VueErrorBoundary is define', function () {
   test('VueErrorBoundary is define', function () {

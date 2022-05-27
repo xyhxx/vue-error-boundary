@@ -1,0 +1,22 @@
+// Vitest Snapshot v1
+
+exports[`suspense > network and suspense 1`] = `
+DOMWrapper {
+  "isDisabled": [Function],
+  "wrapperElement": <ul
+    id="data_list"
+  >
+    
+    <li>
+      item1
+    </li>
+    <li>
+      item2
+    </li>
+    <li>
+      item3
+    </li>
+    
+  </ul>,
+}
+`;

@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 
 import ClickThrow from './components/click.vue';
 import Caputre from './components/capture.vue';
-import ErrorBoundary, { ErrorBoundaryProps } from '../src';
+import ErrorBoundary, { ErrorBoundaryProps } from '@src';
 import { defineComponent, h } from 'vue';
 
 let App: any;
