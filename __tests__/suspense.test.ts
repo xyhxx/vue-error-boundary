@@ -21,7 +21,7 @@ const App = defineComponent({
       return h(
         ErrorBoundary,
         {
-          onErrorCaputred: errorEmit,
+          onCaputred: errorEmit,
         },
         {
           default() {
