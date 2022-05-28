@@ -9,7 +9,14 @@
 
 <p align="center">Simple and convenient Vue error boundary.</p>
 
-`The idea comes from`[react-error-boundary](https://github.com/bvaughn/react-error-boundary)`, catch errors thrown by subcomponents and provide a UI for fallback slot when the error is displayed.`
+The idea comes from`[react-error-boundary](https://github.com/bvaughn/react-error-boundary)`, catch
+errors thrown by subcomponents and provide a UI for fallback slot when the error is displayed.
+
+# Features
+
+- 🔧 easy, out of the box.
+- 🔑 type safe.
+- ✅ test coverage 95%
 
 # Catalogue
 
