@@ -1,3 +1,12 @@
+# v1.1.0
+
+- edit emit name to caputred
+
+# v1.0.1
+
+- fix npm files
+- supplement readme
+
 # v1.0.0
 
 - VeBoundary component complete

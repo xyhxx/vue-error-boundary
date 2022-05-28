@@ -26,7 +26,7 @@ const ErrorBoundaryComponent = defineComponent({
     exclude: [Array, RegExp],
     keepEmit: { type: Boolean, default: false },
   },
-  emits: ['errorCaputred'],
+  emits: ['caputred'],
   setup({ propagation, include, exclude, keepEmit }, { slots, emit }) {
     if (__DEV__ && !slots.default) {
       warn('you did not provide a default slot');
@@ -62,7 +62,7 @@ const ErrorBoundaryComponent = defineComponent({
         error.value = err;
       }
       if (captured || (!captured && keepEmit)) {
-        emit('errorCaputred', { error: err, instance, info });
+        emit('caputred', { error: err, instance, info });
       }
 
       if (!captured) return true;
@@ -88,7 +88,9 @@ const ErrorBoundary = ErrorBoundaryComponent as unknown as {
       default: () => VNode[];
       fallback: (arg: ErrorBoundaryProps) => VNode[];
     };
-    $emit: { (e: 'errorCaputred', payload: VueErrorBoundaryEmitPayload): void };
+    $emit: {
+      (e: 'caputred', payload: VueErrorBoundaryEmitPayload): void;
+    };
   };
 };
 

@@ -18,7 +18,7 @@ const App = defineComponent({
     return function () {
       return h(
         ErrorBoundary,
-        { onErrorCaputred: emitCaptured },
+        { onCaputred: emitCaptured },
         {
           default: () => h(ClickThrow),
           fallback: (e: ErrorBoundaryProps) => h(Caputre, e),
