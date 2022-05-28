@@ -1,4 +1,4 @@
-# v1.1.0
+# v1.0.2
 
 - edit emit name to caputred
 
