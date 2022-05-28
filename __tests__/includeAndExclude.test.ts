@@ -29,7 +29,7 @@ describe('include, exclude, keepEmit', function () {
               include: props.include as string[] | RegExp | undefined,
               exclude: props.exclude as string[] | RegExp | undefined,
               keepEmit: props.keepEmit,
-              onErrorCaputred: emitCaptured,
+              onCaputred: emitCaptured,
             },
             {
               default() {
