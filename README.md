@@ -28,7 +28,7 @@ errors thrown by subcomponents and provide a UI for fallback slot when the error
     - [propagation](#propagation)
     - [include & exclude](#include)
     - [keepEmit](#keepemit)
-    - [Suspense](#suspense)
+  - [Suspense](#suspense)
 - [LICENSE](#license)
 
 # Install
