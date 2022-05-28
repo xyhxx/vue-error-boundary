@@ -36,14 +36,6 @@ errors thrown by subcomponents and provide a UI for fallback slot when the error
 Install plugins into dependencies, you can use which you like package manager.
 
 ```
-npm install veboundary
-
-or
-
-yarn add veboundary
-
-or
-
 pnpm add veboundary
 
 ```
