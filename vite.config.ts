@@ -57,11 +57,12 @@ export default defineConfig(function ({ mode }) {
         fileName: format => `index.${format}.js`,
       },
       rollupOptions: {
-        external: ['vue', '@vue/devtools-api'],
+        external: ['vue', '@vue/devtools-api', 'nanoid'],
         output: {
           globals: {
             vue: 'Vue',
             '@vue/devtools-api': 'VueDevtoolsApi',
+            nanoid: 'nanoid',
           },
         },
       },

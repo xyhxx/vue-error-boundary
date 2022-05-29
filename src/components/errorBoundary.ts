@@ -1,10 +1,11 @@
-import { registerDevtools, warn, refreshInspector, randomId } from '@utils';
+import { registerDevtools, warn, refreshInspector } from '@utils';
 import { ComponentPublicInstance, defineComponent, onErrorCaptured, ref, VNode } from 'vue';
+import { nanoid } from 'nanoid';
 
 const ids = new Set<string>();
 
 function generateId(): string {
-  const id = randomId(5);
+  const id = nanoid(5);
 
   if (ids.has(id)) {
     return generateId();
