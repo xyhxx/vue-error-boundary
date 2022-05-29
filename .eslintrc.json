@@ -5,7 +5,8 @@
     "eslint-config-prettier"
   ],
   "globals": {
-    "Vi": "readonly"
+    "Vi": "readonly",
+    "__DEV__": "readonly"
   },
   "parser": "vue-eslint-parser",
   "parserOptions": {

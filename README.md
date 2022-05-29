@@ -44,19 +44,19 @@ pnpm add veboundary
 
 ```vue
 <script lang="ts" setup>
-import ErrorBoundary from 'veboundary';
+import VueErrorBoundary from 'veboundary';
 import Son from './son.vue';
 import FallbackComponent from './fallback.vue';
 </script>
 
 <template>
-  <ErrorBoundary>
+  <VueErrorBoundary>
     <Son />
 
     <template #fallback>
       <FallbackComponent />
     </template>
-  </ErrorBoundary>
+  </VueErrorBoundary>
 </template>
 ```
 
@@ -92,7 +92,7 @@ If you want a more detailed error report, you can get it from emit.
 
 ```vue
 <script lang="ts" setup>
-import ErrorBoundary,{VueErrorBoundaryEmit} from 'veboundary';
+import VueErrorBoundary,{VueErrorBoundaryEmit} from 'veboundary';
 import Son from './son.vue';
 import FallbackComponent, from './fallback.vue';
 
@@ -102,13 +102,13 @@ const caputedEmit: VueErrorBoundaryEmit = function ({ error, instance, info }) {
 </script>
 
 <template>
-  <ErrorBoundary @caputred="caputedEmit">
+  <VueErrorBoundary @caputred="caputedEmit">
     <Son />
 
     <template #fallback="errors">
       <FallbackComponent v-bind="errors" />
     </template>
-  </ErrorBoundary>
+  </VueErrorBoundary>
 </template>
 ```
 
@@ -125,19 +125,19 @@ component, you can pass in the `propagation` prop.
 
 ```vue
 <script lang="ts" setup>
-import ErrorBoundary from 'veboundary';
+import VueErrorBoundary from 'veboundary';
 import Son from './son.vue';
 import FallbackComponent, from './fallback.vue';
 </script>
 
 <template>
-  <ErrorBoundary propagation>
+  <VueErrorBoundary propagation>
     <Son />
 
     <template #fallback="errors">
       <FallbackComponent v-bind="errors" />
     </template>
-  </ErrorBoundary>
+  </VueErrorBoundary>
 </template>
 ```
 
@@ -151,7 +151,7 @@ include and exclude type is RegExp, only match error.message**
 
 ```vue
 <script lang="ts" setup>
-import ErrorBoundary from 'veboundary';
+import VueErrorBoundary from 'veboundary';
 import Son from './son.vue';
 import FallbackComponent, from './fallback.vue';
 
@@ -160,13 +160,13 @@ import FallbackComponent, from './fallback.vue';
 </script>
 
 <template>
-  <ErrorBoundary :include="list" :exclude="regexp">
+  <VueErrorBoundary :include="list" :exclude="regexp">
     <Son />
 
     <template #fallback="errors">
       <FallbackComponent v-bind="errors" />
     </template>
-  </ErrorBoundary>
+  </VueErrorBoundary>
 </template>
 ```
 
@@ -177,7 +177,7 @@ exclude is true, you can pass in `keepEmit`.
 
 ```vue
 <script lang="ts" setup>
-import ErrorBoundary,{VueErrorBoundaryEmit} from 'veboundary';
+import VueErrorBoundary,{VueErrorBoundaryEmit} from 'veboundary';
 import Son from './son.vue';
 import FallbackComponent, from './fallback.vue';
 
@@ -190,13 +190,13 @@ import FallbackComponent, from './fallback.vue';
 </script>
 
 <template>
-  <ErrorBoundary :include="list" :exclude="regexp" @caputred="caputedEmit" keep-emit>
+  <VueErrorBoundary :include="list" :exclude="regexp" @caputred="caputedEmit" keep-emit>
     <Son />
 
     <template #fallback="errors">
       <FallbackComponent v-bind="errors" />
     </template>
-  </ErrorBoundary>
+  </VueErrorBoundary>
 </template>
 ```
 
