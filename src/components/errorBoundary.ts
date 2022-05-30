@@ -1,25 +1,20 @@
-import { registerDevtools, warn, refreshInspector } from '@utils';
-import { ComponentPublicInstance, defineComponent, onErrorCaptured, ref, VNode } from 'vue';
-import { nanoid } from 'nanoid';
+import { registerDevtools, warn, refreshInspector, addTimeline } from '@utils';
+import {
+  ComponentPublicInstance,
+  defineComponent,
+  getCurrentInstance,
+  onErrorCaptured,
+  ref,
+  VNode,
+} from 'vue';
 
-const ids = new Set<string>();
-
-function generateId(): string {
-  const id = nanoid(5);
-
-  if (ids.has(id)) {
-    return generateId();
-  }
-
-  return id;
-}
+const ids = new Set();
 
 export type VueErrorBoundaryProps = {
   propagation?: boolean;
   include?: string[] | RegExp;
   exclude?: string[] | RegExp;
   keepEmit?: boolean;
-  label?: string;
 };
 export type ErrorBoundaryProps = {
   error: Error;
@@ -38,37 +33,44 @@ const ErrorBoundaryComponent = defineComponent({
   props: {
     propagation: { type: Boolean, default: false },
     keepEmit: { type: Boolean, default: false },
-    label: {
-      type: String,
-      default: () => generateId(),
-      validator(value: string) {
-        return !ids.has(value);
-      },
-    },
     // eslint-disable-next-line vue/require-default-prop
     include: [Array, RegExp],
     // eslint-disable-next-line vue/require-default-prop
     exclude: [Array, RegExp],
   },
   emits: ['caputred'],
-  setup(props, { slots, emit }) {
-    ids.add(props.label);
+  setup(props, { slots, emit, attrs }) {
+    let label: string | null = null;
+    if (__DEV__) {
+      const id = attrs?.id as string;
 
-    if (__DEV__ && !slots.default) {
+      if (id) {
+        label = id;
+        if (ids.has(id)) {
+          warn(`duplicate id: ${id}`);
+          return;
+        }
+
+        ids.add(id);
+      } else {
+        const instance = getCurrentInstance();
+        instance && (label = `${instance.type.name}-${instance.uid}`);
+      }
+    }
+
+    if (!slots.default) {
       warn('you did not provide a default slot');
     }
-    if (__DEV__ && !slots.fallback) {
+    if (!slots.fallback) {
       warn('you did not provide a fallback slot');
     }
 
     const error = ref<Error | null>(null);
     const errorInfo = ref('');
 
-    __DEV__ && registerDevtools({ error, info: errorInfo });
+    registerDevtools({ error, info: errorInfo });
 
     onErrorCaptured(function (err, instance, info) {
-      __DEV__ && refreshInspector();
-
       const { name, message } = err;
       let includeState = true,
         excludeState = true;
@@ -101,15 +103,19 @@ const ErrorBoundaryComponent = defineComponent({
         emit('caputred', { error: err, instance, info });
       }
 
+      refreshInspector();
+      addTimeline(label);
+
       if (!captured) return true;
       return props.propagation;
     });
 
     function reset() {
-      __DEV__ && refreshInspector();
-
       error.value = null;
       errorInfo.value = '';
+
+      refreshInspector();
+      addTimeline(label);
     }
 
     return function () {

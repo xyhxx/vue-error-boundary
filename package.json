@@ -6,7 +6,7 @@
     "build:ts": "vue-tsc --noEmit",
     "build:umd": "vite build --mode umd",
     "build:es": "vite build --mode es",
-    "build": "pnpm build:umd && pnpm build:es",
+    "build": "pnpm build:ts && pnpm build:umd && pnpm build:es",
     "test": "vitest",
     "test:coverage": "vitest --coverage"
   },
@@ -66,7 +66,6 @@
     "vue": ">=3.0.0"
   },
   "dependencies": {
-    "@vue/devtools-api": "^6.1.4",
-    "nanoid": "^3.3.4"
+    "@vue/devtools-api": "^6.1.4"
   }
 }

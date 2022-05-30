@@ -4,6 +4,7 @@ import {
   setupDevtoolsPlugin,
   App,
   CustomInspectorNode,
+  ComponentState,
 } from '@vue/devtools-api';
 import { throttle } from './throttle';
 
@@ -14,13 +15,16 @@ type DevtoolsState = {
 
 let API: DevtoolsPluginApi<Record<string, any>> | undefined;
 
-const INSPECTOR_ID = 'VeBoundary';
+const INSPECTOR_ID = 'VeBoundary ID';
 const THROTTLE_DURATION = 50;
-const STATE_TYPE = 'VeBoundary state';
+const COMPONENT_NAME = 'VeBoundary';
+const STATE_TYPE = 'VeBoundary';
+const TIMELINE_ID = 'VeBoundary Timeline ID';
+const THEME = 0x43c6ac;
 
 const memoState = new Map<string, DevtoolsState>();
 
-function formatTree() {
+function formatTreeState() {
   const arr = [];
   for (const [key, val] of memoState.entries()) {
     const isError = val.error.value !== null;
@@ -39,13 +43,27 @@ function formatTree() {
     arr.push(obj);
   }
 
-  return [
-    {
-      id: STATE_TYPE,
-      label: 'VeBoundary root',
-      children: arr,
-    },
-  ];
+  return arr;
+}
+
+function formatInspectState() {
+  const arr = [];
+  for (const [key, val] of memoState.entries()) {
+    const obj: ComponentState = {
+      type: STATE_TYPE,
+      key,
+      value: {
+        name: val.error.value?.name || '',
+        message: val.error.value?.message || '',
+        stack: val.error.value?.stack || '',
+        info: val.info.value,
+      },
+    };
+
+    arr.push(obj);
+  }
+
+  return arr;
 }
 
 function initPluginInfo() {
@@ -68,6 +86,7 @@ function getInspectorState() {
     payload.state = {
       error: [
         {
+          editable: false,
           key: 'name',
           value: errorInfo.error.value?.name || '',
         },
@@ -89,42 +108,43 @@ function getInspectorTree() {
   API?.on.getInspectorTree(function (payload) {
     if (payload.inspectorId !== INSPECTOR_ID) return;
 
-    payload.rootNodes = formatTree();
+    payload.rootNodes = formatTreeState();
   });
 }
 
 function visitComponentTree() {
   API?.on.visitComponentTree(function (payload) {
     const node = payload.treeNode;
-    if (node.name !== INSPECTOR_ID) return;
+    if (node.name !== COMPONENT_NAME) return;
     const instance = payload.componentInstance as ComponentInternalInstance;
-    const id = instance.props.label as string;
+    let id = instance.attrs?.id as string;
+    if (!id) {
+      id = `${instance.type.name}-${instance.uid}`;
+    }
 
     if (!id) return;
     node.tags = [
       {
         label: id,
         textColor: 0xffffff,
-        backgroundColor: 0x43c6ac,
+        backgroundColor: THEME,
       },
     ];
   });
 }
 
-export function refreshInspector() {
-  const fn = throttle(function () {
-    async function refresh() {
-      await nextTick();
-      API?.sendInspectorState(INSPECTOR_ID);
-      API?.sendInspectorTree(INSPECTOR_ID);
-    }
+function inspectComponent() {
+  API?.on.inspectComponent(function (payload) {
+    payload.instanceData.state.push(...formatInspectState());
+  });
+}
 
-    setTimeout(function () {
-      refresh();
-    }, THROTTLE_DURATION);
-  }, THROTTLE_DURATION);
-
-  fn();
+function registerTimeline() {
+  API?.addTimelineLayer({
+    id: TIMELINE_ID,
+    label: 'VeBoundary',
+    color: THEME,
+  });
 }
 
 function installDevtoolsPlugin(app: App) {
@@ -147,11 +167,33 @@ function installDevtoolsPlugin(app: App) {
       visitComponentTree();
       getInspectorState();
       getInspectorTree();
+      inspectComponent();
+      registerTimeline();
     },
   );
 }
 
+export function refreshInspector() {
+  if (!__DEV__) return;
+
+  const fn = throttle(function () {
+    async function refresh() {
+      await nextTick();
+      API?.sendInspectorState(INSPECTOR_ID);
+      API?.sendInspectorTree(INSPECTOR_ID);
+      API?.notifyComponentUpdate();
+    }
+
+    setTimeout(function () {
+      refresh();
+    }, THROTTLE_DURATION);
+  }, THROTTLE_DURATION);
+
+  fn();
+}
+
 export function registerDevtools(arg: DevtoolsState) {
+  if (!__DEV__) return;
   const instance = getCurrentInstance();
   if (!instance) return;
   if (!API) {
@@ -162,7 +204,10 @@ export function registerDevtools(arg: DevtoolsState) {
 
     installDevtoolsPlugin(app);
   }
-  const label = instance.props.label as string;
+  let label = instance.attrs?.id as string;
+  if (!label) {
+    label = `${instance.type.name}-${instance.uid}`;
+  }
 
   onBeforeUnmount(function () {
     refreshInspector();
@@ -172,4 +217,31 @@ export function registerDevtools(arg: DevtoolsState) {
 
   memoState.set(label, arg);
   refreshInspector();
+}
+
+export function addTimeline(id: string | null, groupId?: string) {
+  if (!__DEV__ || !id) return;
+
+  const errorInfo = memoState.get(id);
+  if (!errorInfo) return;
+  const isError = errorInfo.error.value !== null;
+
+  API?.addTimelineEvent({
+    layerId: TIMELINE_ID,
+    event: {
+      groupId,
+      time: API.now(),
+      data: isError
+        ? {
+            type: 'captured error',
+            name: errorInfo.error.value?.name || '',
+            message: errorInfo.error.value?.message || '',
+            stack: errorInfo.error.value?.stack || '',
+            info: errorInfo.info.value,
+          }
+        : {
+            type: 'reset',
+          },
+    },
+  });
 }
