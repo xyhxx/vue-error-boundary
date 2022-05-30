@@ -1,3 +1,7 @@
+# v1.1.0
+
+- support devtools
+
 # v1.0.2
 
 - edit emit name to caputred

@@ -14,9 +14,10 @@ errors thrown by subcomponents and provide a UI for fallback slot when the error
 
 # Features
 
-- 🔧 easy, out of the box.
+- 🔗 easy, out of the box.
+- 🔧 support devtools.
 - 🔑 type safe.
-- ✅ test coverage 95%
+- 🔨 unit testing.
 
 # Catalogue
 
@@ -26,9 +27,10 @@ errors thrown by subcomponents and provide a UI for fallback slot when the error
   - [Emit](#emit)
   - [Props](#props)
     - [propagation](#propagation)
-    - [include & exclude](#include)
+    - [include & exclude](#include-exclude)
     - [keepEmit](#keepemit)
   - [Suspense](#suspense)
+- [Devtools](#Devtools)
 - [LICENSE](#license)
 
 # Install
@@ -65,7 +67,7 @@ import FallbackComponent from './fallback.vue';
 if you want to get error information, you can get it through slot scope. the slot scope provides two
 variables, one of `error:Error`. one of `reset:() = > void`;
 
-reset rerenders the default slot, and you can provide a button in the fallback component to try to
+`reset` rerenders the default slot, and you can provide a button in the fallback component to try to
 rerender
 
 ```vue
@@ -141,7 +143,7 @@ import FallbackComponent, from './fallback.vue';
 </template>
 ```
 
-### include
+### include-exclude
 
 If you only want to catch some errors, you can pass in `include:string[] | RegExp` or
 `exclude:string[] | RegExp` props.
@@ -200,10 +202,18 @@ import FallbackComponent, from './fallback.vue';
 </template>
 ```
 
-### Suspense
+## Suspense
 
 You can view the examples used with suspend+vue-query in the
 [codesandbox](https://codesandbox.io/s/pcmg9e)
+
+# Devtools
+
+Support Vue devtools.You can view the error information and other contents in the developer tool.
+
+You can add an `id` to the component for marking. If no `id` is passed in, VeBoundary will
+automatically generate an id as a mark.Be careful not to duplicate `id`, data with the same `id`
+will be overwritten.
 
 # LICENSE
 
