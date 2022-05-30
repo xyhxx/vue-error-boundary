@@ -148,8 +148,8 @@ import FallbackComponent, from './fallback.vue';
 If you only want to catch some errors, you can pass in `include:string[] | RegExp` or
 `exclude:string[] | RegExp` props.
 
-**TIPS: if the include and exclude types are string[], will match error.message and error.name, if
-include and exclude type is RegExp, only match error.message**
+**TIPS: If include or exclude is of type string[], will match error.message and error.name, if
+include or exclude is of type RegExp, only match error.message**
 
 ```vue
 <script lang="ts" setup>
