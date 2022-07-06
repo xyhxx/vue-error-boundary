@@ -1,3 +1,7 @@
+# v1.2.0
+
+- add hook(useBoundary)
+
 # v1.1.0
 
 - support devtools
