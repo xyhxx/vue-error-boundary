@@ -30,6 +30,7 @@ errors thrown by subcomponents and provide a UI for fallback slot when the error
     - [include & exclude](#include-exclude)
     - [keepEmit](#keepemit)
   - [Suspense](#suspense)
+  - [useBoundary](#useboundary)
 - [Devtools](#Devtools)
 - [LICENSE](#license)
 
