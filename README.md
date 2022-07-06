@@ -207,6 +207,18 @@ import FallbackComponent, from './fallback.vue';
 You can view the examples used with suspend+vue-query in the
 [codesandbox](https://codesandbox.io/s/pcmg9e)
 
+## useBoundary
+
+It is not necessary to obtain reset and error through props,more convenient to use hook.
+
+```ts
+
+const {error, reset} = useBoundary();
+console.log(error?.message, error?.name);
+...
+
+```
+
 # Devtools
 
 Support Vue devtools.You can view the error information and other contents in the developer tool.

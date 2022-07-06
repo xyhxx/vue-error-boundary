@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useQuery } from 'vue-query';
 import axios from 'axios';
+
 const props = defineProps<{ returnError: boolean }>();
 
 const { data, suspense } = useQuery(
@@ -17,9 +18,8 @@ const { data, suspense } = useQuery(
 
     if (data.status === 'success') {
       return data.data;
-    } else {
-      throw new Error(data.data);
     }
+    throw new Error(data.data);
   },
   { retry: false },
 );

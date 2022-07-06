@@ -7,7 +7,7 @@ defineProps<{
 
 <template>
   <p id="error">{{ error.name }},{{ error.message }}</p>
-  <button @click="reset" id="reset">Reset</button>
+  <button id="reset" @click="reset">Reset</button>
 </template>
 
 <script lang="ts">

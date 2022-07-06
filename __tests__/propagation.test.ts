@@ -3,6 +3,7 @@ import ClickThrow from './components/click.vue';
 import Caputre from './components/capture.vue';
 import { mount } from '@vue/test-utils';
 import { defineComponent, h, onErrorCaptured } from 'vue';
+import { describe, test, beforeEach, expect, vi } from 'vitest';
 
 const fn = vi.fn();
 
@@ -12,14 +13,15 @@ describe('onErrorCaptured propagation', function () {
   beforeEach(function () {
     fn.mockReset();
     App = defineComponent({
-      props: {
-        propagation: Boolean,
-        cb: Function,
-      },
       components: {
         ClickThrow,
         ErrorBoundary,
         Caputre,
+      },
+      props: {
+        propagation: Boolean,
+        // eslint-disable-next-line vue/require-default-prop
+        cb: Function,
       },
       setup(props) {
         onErrorCaptured(function (errors) {

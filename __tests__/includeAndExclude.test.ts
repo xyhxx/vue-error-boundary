@@ -1,3 +1,4 @@
+/* eslint-disable vue/require-default-prop */
 import ErrorBoundary, { ErrorBoundaryProps, VueErrorBoundaryEmit } from '@src';
 import ClickThrow from './components/click.vue';
 import Caputre from './components/capture.vue';
@@ -5,6 +6,7 @@ import ClickTypeError from './components/typeError.vue';
 import ClickRefError from './components/refError.vue';
 import { mount } from '@vue/test-utils';
 import { defineComponent, h } from 'vue';
+import { describe, test, beforeEach, expect } from 'vitest';
 
 let App: any;
 

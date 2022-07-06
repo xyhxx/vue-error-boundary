@@ -37,13 +37,13 @@ export default defineConfig(function ({ mode }) {
       },
       include: ['__tests__/*.test.ts'],
       environment: 'jsdom',
-      globals: true,
     },
     resolve: {
       alias: {
         '@src': resolve(__dirname, 'src'),
         '@components': resolve(__dirname, 'src/components'),
         '@utils': resolve(__dirname, 'src/utils'),
+        '@hooks': resolve(__dirname, 'src/hooks'),
       },
     },
     publicDir: false,

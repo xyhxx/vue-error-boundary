@@ -12,11 +12,11 @@
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "skipLibCheck": true,
-    "types": ["vitest/globals"],
     "baseUrl": "./src",
     "paths": {
       "@src": ["./index"],
       "@components": ["./components/index"],
+      "@hooks": ["./hooks/index"],
       "@utils": ["./utils/index"]
     }
   },

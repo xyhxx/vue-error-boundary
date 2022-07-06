@@ -1,14 +1,13 @@
-import { registerDevtools, warn, refreshInspector, addTimeline } from '@utils';
+import { registerDevtools, warn, refreshInspector, addTimeline, VEBOUNDARY_HOOK_KEY } from '@utils';
 import {
   ComponentPublicInstance,
   defineComponent,
   getCurrentInstance,
   onErrorCaptured,
+  provide,
   ref,
   VNode,
 } from 'vue';
-
-const ids = new Set();
 
 export type VueErrorBoundaryProps = {
   propagation?: boolean;
@@ -26,6 +25,9 @@ export type VueErrorBoundaryEmitPayload = {
   instance: ComponentPublicInstance | null;
   info: string;
 };
+
+// record the ID used
+const ids = new Set();
 
 const ErrorBoundaryComponent = defineComponent({
   name: 'VeBoundary',
@@ -67,6 +69,19 @@ const ErrorBoundaryComponent = defineComponent({
 
     const error = ref<Error | null>(null);
     const errorInfo = ref('');
+    function reset() {
+      error.value = null;
+      errorInfo.value = '';
+
+      refreshInspector();
+      addTimeline(label);
+    }
+
+    // provide state for useBoundary
+    provide(VEBOUNDARY_HOOK_KEY, {
+      reset,
+      error,
+    });
 
     registerDevtools({ error, info: errorInfo });
 
@@ -109,14 +124,6 @@ const ErrorBoundaryComponent = defineComponent({
       if (!captured) return true;
       return props.propagation;
     });
-
-    function reset() {
-      error.value = null;
-      errorInfo.value = '';
-
-      refreshInspector();
-      addTimeline(label);
-    }
 
     return function () {
       return error.value === null

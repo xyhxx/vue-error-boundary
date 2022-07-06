@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-
+import { describe, test, beforeEach, expect } from 'vitest';
 import ClickThrow from './components/click.vue';
 import Caputre from './components/capture.vue';
 import ErrorBoundary, { ErrorBoundaryProps } from '@src';

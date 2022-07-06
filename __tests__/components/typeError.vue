@@ -5,7 +5,7 @@ function throwError() {
 </script>
 
 <template>
-  <button @click="throwError" id="type_error">type error</button>
+  <button id="type_error" @click="throwError">type error</button>
 </template>
 
 <script lang="ts">

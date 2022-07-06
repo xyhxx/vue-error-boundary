@@ -5,5 +5,11 @@ function throwError() {
 </script>
 
 <template>
-  <button @click="throwError" id="throw">throw error</button>
+  <button id="throw" @click="throwError">throw error</button>
 </template>
+
+<script lang="ts">
+export default {
+  name: 'ClickTestComponent',
+};
+</script>

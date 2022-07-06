@@ -1,10 +1,10 @@
 import ErrorBoundary, { ErrorBoundaryProps } from '@src';
-import { mount, config, flushPromises } from '@vue/test-utils';
+import { mount, flushPromises } from '@vue/test-utils';
 import { defineComponent, h, ref, Suspense } from 'vue';
 import Caputre from './components/capture.vue';
 import NetworkCom from './components/network.vue';
 import { QueryClient } from 'vue-query';
-import { vi } from 'vitest';
+import { vi, describe, test, expect } from 'vitest';
 
 const client = new QueryClient();
 
