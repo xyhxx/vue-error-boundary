@@ -205,7 +205,7 @@ import FallbackComponent, from './fallback.vue';
 
 ## Suspense
 
-You can view the examples used with suspend+vue-query in the
+You can view the examples used with suspense+vue-query in the
 [codesandbox](https://codesandbox.io/s/pcmg9e)
 
 ## useBoundary
