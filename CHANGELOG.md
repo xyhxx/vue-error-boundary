@@ -1,3 +1,7 @@
+# v.1.2.1
+
+- fix build
+
 # v1.2.0
 
 - add hook(useBoundary)

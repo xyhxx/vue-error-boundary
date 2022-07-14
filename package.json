@@ -1,7 +1,7 @@
 {
   "name": "veboundary",
   "description": "Simple and convenient Vue error boundary.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "scripts": {
     "build:ts": "vue-tsc --noEmit",
     "build:umd": "vite build --mode umd",
