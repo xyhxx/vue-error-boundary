@@ -1,5 +1,4 @@
-export * from '@hooks';
-export { default } from './errorBoundary';
+export {default} from './errorBoundary';
 export type {
   ErrorBoundaryProps,
   VueErrorBoundaryEmit,

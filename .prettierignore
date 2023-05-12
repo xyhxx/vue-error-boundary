@@ -28,3 +28,7 @@ yarn-error.log
 **/*.yml
 **/.gitkeep
 .stylelintignore
+__tests__/__snapshots__
+.pnpm-lock.yaml
+LICENSE
+CHANGELOG.md

@@ -1,5 +1,5 @@
 import ErrorBoundary from '@src';
-import { describe, test, expect } from 'vitest';
+import {describe, test, expect} from 'vitest';
 
 describe('VueErrorBoundary is define', function () {
   test('VueErrorBoundary is define', function () {

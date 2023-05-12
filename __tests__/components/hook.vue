@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useBoundary } from '@src';
+import {useBoundary} from '@src';
 
-const { reset, error } = useBoundary();
+const {reset, error} = useBoundary();
 </script>
 
 <template>

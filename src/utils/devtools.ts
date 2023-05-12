@@ -1,4 +1,10 @@
-import { ComponentInternalInstance, getCurrentInstance, nextTick, onBeforeUnmount, Ref } from 'vue';
+import {
+  ComponentInternalInstance,
+  getCurrentInstance,
+  nextTick,
+  onBeforeUnmount,
+  Ref,
+} from 'vue-demi';
 import {
   DevtoolsPluginApi,
   setupDevtoolsPlugin,
@@ -6,7 +12,7 @@ import {
   CustomInspectorNode,
   ComponentState,
 } from '@vue/devtools-api';
-import { throttle } from './throttle';
+import {throttle} from './throttle';
 
 type DevtoolsState = {
   error: Ref<Error | null>;
@@ -99,7 +105,7 @@ function getInspectorState() {
           value: errorInfo.error.value?.stack || '',
         },
       ],
-      info: [{ key: 'info', value: errorInfo.info.value }],
+      info: [{key: 'info', value: errorInfo.info.value}],
     };
   });
 }
@@ -197,7 +203,7 @@ export function registerDevtools(arg: DevtoolsState) {
   const instance = getCurrentInstance();
   if (!instance) return;
   if (!API) {
-    const app = instance.appContext.app;
+    const {app} = instance.appContext;
     if (!app) {
       return;
     }

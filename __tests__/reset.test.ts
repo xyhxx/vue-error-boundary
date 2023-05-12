@@ -1,9 +1,9 @@
-import ErrorBoundary, { ErrorBoundaryProps } from '@src';
+import ErrorBoundary, {ErrorBoundaryProps} from '@src';
 import ClickThrow from './components/click.vue';
 import Caputre from './components/capture.vue';
-import { mount } from '@vue/test-utils';
-import { defineComponent, h } from 'vue';
-import { describe, test, expect } from 'vitest';
+import {mount} from '@vue/test-utils';
+import {defineComponent, h} from 'vue';
+import {describe, test, expect} from 'vitest';
 
 const App = defineComponent({
   setup() {

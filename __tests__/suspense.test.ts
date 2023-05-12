@@ -1,12 +1,9 @@
-import ErrorBoundary, { ErrorBoundaryProps } from '@src';
-import { mount, flushPromises } from '@vue/test-utils';
-import { defineComponent, h, ref, Suspense } from 'vue';
+import ErrorBoundary, {ErrorBoundaryProps} from '@src';
+import {mount, flushPromises} from '@vue/test-utils';
+import {defineComponent, h, ref, Suspense} from 'vue';
 import Caputre from './components/capture.vue';
 import NetworkCom from './components/network.vue';
-import { QueryClient } from 'vue-query';
-import { vi, describe, test, expect } from 'vitest';
-
-const client = new QueryClient();
+import {vi, describe, test, expect} from 'vitest';
 
 vi.mock('axios');
 
@@ -32,7 +29,7 @@ const App = defineComponent({
                 });
               },
               fallback() {
-                return h('p', { id: 'loading' }, 'loading...');
+                return h('p', {id: 'loading'}, 'loading...');
               },
             });
           },
@@ -47,11 +44,7 @@ const App = defineComponent({
 
 describe('suspense', function () {
   test('network and suspense', async function () {
-    const app = mount(App, {
-      global: {
-        provide: { VUE_QUERY_CLIENT: client },
-      },
-    });
+    const app = mount(App);
 
     const loading = app.find('#loading');
     expect(loading.exists()).toBe(true);

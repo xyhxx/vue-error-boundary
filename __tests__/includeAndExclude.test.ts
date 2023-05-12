@@ -1,12 +1,12 @@
 /* eslint-disable vue/require-default-prop */
-import ErrorBoundary, { ErrorBoundaryProps, VueErrorBoundaryEmit } from '@src';
+import ErrorBoundary, {ErrorBoundaryProps, VueErrorBoundaryEmit} from '@src';
 import ClickThrow from './components/click.vue';
 import Caputre from './components/capture.vue';
 import ClickTypeError from './components/typeError.vue';
 import ClickRefError from './components/refError.vue';
-import { mount } from '@vue/test-utils';
-import { defineComponent, h } from 'vue';
-import { describe, test, beforeEach, expect } from 'vitest';
+import {mount} from '@vue/test-utils';
+import {defineComponent, h, onErrorCaptured} from 'vue';
+import {describe, test, beforeEach, expect} from 'vitest';
 
 let App: any;
 
@@ -19,10 +19,12 @@ describe('include, exclude, keepEmit', function () {
         keepEmit: Boolean,
       },
       emits: ['captured'],
-      setup(props, { emit }) {
+      setup(props, {emit}) {
         const emitCaptured: VueErrorBoundaryEmit = function (error) {
           emit('captured', error);
         };
+
+        onErrorCaptured(() => false);
 
         return function () {
           return h(
@@ -209,7 +211,7 @@ describe('include, exclude, keepEmit', function () {
 
     expect(app.emitted().captured.length).toBe(1);
 
-    let reset = app.find('#reset');
+    const reset = app.find('#reset');
     await reset.trigger('click');
 
     const errorBtn = app.get('#throw');
@@ -238,7 +240,7 @@ describe('include, exclude, keepEmit', function () {
 
     expect(app.emitted().captured.length).toBe(1);
 
-    let reset = app.find('#reset');
+    const reset = app.find('#reset');
     await reset.trigger('click');
 
     const errorBtn = app.get('#throw');

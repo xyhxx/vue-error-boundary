@@ -9,8 +9,10 @@
 
 <p align="center">Simple and convenient Vue error boundary.</p>
 
-The idea comes from[react-error-boundary](https://github.com/bvaughn/react-error-boundary), catch
-errors thrown by subcomponents and provide a UI for fallback slot when the error is displayed.
+The idea comes from
+[react-error-boundary](https://github.com/bvaughn/react-error-boundary), catch
+errors thrown by subcomponents and provide a UI for fallback slot when the error
+is displayed.
 
 # Features
 
@@ -18,6 +20,7 @@ errors thrown by subcomponents and provide a UI for fallback slot when the error
 - 🔧 support devtools.
 - 🔑 type safe.
 - 🔨 unit testing.
+- 🤞 Supports vue2&vue3 [(use vue-demi)](https://github.com/vueuse/vue-demi)
 
 # Catalogue
 
@@ -65,11 +68,12 @@ import FallbackComponent from './fallback.vue';
 
 ## Slot Scope
 
-if you want to get error information, you can get it through slot scope. the slot scope provides two
-variables, one of `error:Error`. one of `reset:() = > void`;
+if you want to get error information, you can get it through slot scope. the
+slot scope provides two variables, one of `error:Error`. one of
+`reset:() = > void`;
 
-`reset` rerenders the default slot, and you can provide a button in the fallback component to try to
-rerender
+`reset` rerenders the default slot, and you can provide a button in the fallback
+component to try to rerender
 
 ```vue
 <script lang="ts" setup>
@@ -82,7 +86,7 @@ import FallbackComponent from './fallback.vue';
   <ErrorBoundary>
     <Son />
 
-    <template #fallback="{ error, reset }">
+    <template #fallback="{error, reset}">
       <FallbackComponent :error="error" :reset="reset" />
     </template>
   </ErrorBoundary>
@@ -119,12 +123,14 @@ const caputedEmit: VueErrorBoundaryEmit = function ({ error, instance, info }) {
 
 ### propagation
 
-`Veboundary` captures errors through `onErrorCaptured`. If you also use `onErrorCaptured` in the
-parent component, errors will not be captured. If you want to capture errors in the parent
-component, you can pass in the `propagation` prop.
+`Veboundary` captures errors through `onErrorCaptured`. If you also use
+`onErrorCaptured` in the parent component, errors will not be captured. If you
+want to capture errors in the parent component, you can pass in the
+`propagation` prop.
 
-**TIPS: If exclude is true, the `onErrorCaptured` of the parent component must catch errors, even if
-`false` is passed in from the `propagation`.About exclude, we will mention it later.**
+**TIPS: If exclude is true, the `onErrorCaptured` of the parent component must
+catch errors, even if `false` is passed in from the `propagation`.About exclude,
+we will mention it later.**
 
 ```vue
 <script lang="ts" setup>
@@ -146,11 +152,11 @@ import FallbackComponent, from './fallback.vue';
 
 ### include-exclude
 
-If you only want to catch some errors, you can pass in `include:string[] | RegExp` or
-`exclude:string[] | RegExp` props.
+If you only want to catch some errors, you can pass in
+`include:string[] | RegExp` or `exclude:string[] | RegExp` props.
 
-**TIPS: If include or exclude is of type string[], will match error.message and error.name, if
-include or exclude is of type RegExp, only match error.message**
+**TIPS: If include or exclude is of type string[], will match error.message and
+error.name, if include or exclude is of type RegExp, only match error.message**
 
 ```vue
 <script lang="ts" setup>
@@ -175,8 +181,8 @@ import FallbackComponent, from './fallback.vue';
 
 ### keepEmit
 
-If exclude is true, `errorCaptured` emit will not be triggered. If you want to trigger emit when
-exclude is true, you can pass in `keepEmit`.
+If exclude is true, `errorCaptured` emit will not be triggered. If you want to
+trigger emit when exclude is true, you can pass in `keepEmit`.
 
 ```vue
 <script lang="ts" setup>
@@ -193,7 +199,12 @@ import FallbackComponent, from './fallback.vue';
 </script>
 
 <template>
-  <VueErrorBoundary :include="list" :exclude="regexp" @caputred="caputedEmit" keep-emit>
+  <VueErrorBoundary
+    :include="list"
+    :exclude="regexp"
+    @caputred="caputedEmit"
+    keep-emit
+  >
     <Son />
 
     <template #fallback="errors">
@@ -210,7 +221,8 @@ You can view the examples used with suspense+vue-query in the
 
 ## useBoundary
 
-It is not necessary to obtain reset and error through props,more convenient to use hook.
+It is not necessary to obtain reset and error through props,more convenient to
+use hook.
 
 ```ts
 
@@ -222,11 +234,12 @@ console.log(error?.message, error?.name);
 
 # Devtools
 
-Support Vue devtools.You can view the error information and other contents in the developer tool.
+Support Vue devtools.You can view the error information and other contents in
+the developer tool.
 
-You can add an `id` to the component for marking. If no `id` is passed in, VeBoundary will
-automatically generate an id as a mark.Be careful not to duplicate `id`, data with the same `id`
-will be overwritten.
+You can add an `id` to the component for marking. If no `id` is passed in,
+VeBoundary will automatically generate an id as a mark.Be careful not to
+duplicate `id`, data with the same `id` will be overwritten.
 
 # LICENSE
 

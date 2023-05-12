@@ -5,13 +5,13 @@ import ErrorBoundary, {
 } from '@src';
 import ClickThrow from './components/click.vue';
 import Caputre from './components/capture.vue';
-import { mount } from '@vue/test-utils';
-import { defineComponent, h } from 'vue';
-import { describe, test, expect } from 'vitest';
+import {mount} from '@vue/test-utils';
+import {defineComponent, h} from 'vue';
+import {describe, test, expect} from 'vitest';
 
 const App = defineComponent({
   emits: ['captured'],
-  setup(_, { emit }) {
+  setup(_, {emit}) {
     const emitCaptured: VueErrorBoundaryEmit = function (error) {
       emit('captured', error);
     };
@@ -19,7 +19,7 @@ const App = defineComponent({
     return function () {
       return h(
         ErrorBoundary,
-        { onCaputred: emitCaptured },
+        {onCaputred: emitCaptured},
         {
           default: () => h(ClickThrow),
           fallback: (e: ErrorBoundaryProps) => h(Caputre, e),
@@ -39,7 +39,9 @@ describe('ErrorBoundary emit value', async function () {
 
     expect(app.emitted().captured).toBeTruthy();
 
-    const payload = (app.emitted().captured[0] as any)[0] as VueErrorBoundaryEmitPayload;
+    const payload = (
+      app.emitted().captured[0] as any
+    )[0] as VueErrorBoundaryEmitPayload;
     expect(payload.error).toBeInstanceOf(Error);
     expect(payload.instance).not.toBeNull();
     expect(payload.info).toBeTypeOf('string');

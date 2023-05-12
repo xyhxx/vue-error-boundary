@@ -1,9 +1,9 @@
-import { defineConfig } from 'vitest/config';
+import {defineConfig} from 'vitest/config';
 import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
-import { resolve } from 'path';
+import {resolve} from 'path';
 
-export default defineConfig(function ({ mode }) {
+export default defineConfig(function ({mode}) {
   const m = mode as 'es' | 'umd';
 
   const plugins = [vue()];
@@ -46,6 +46,9 @@ export default defineConfig(function ({ mode }) {
         '@hooks': resolve(__dirname, 'src/hooks'),
       },
     },
+    optimizeDeps: {
+      exclude: ['vue-demi'],
+    },
     publicDir: false,
     build: {
       emptyOutDir: m === 'umd',
@@ -57,11 +60,12 @@ export default defineConfig(function ({ mode }) {
         fileName: format => `index.${format}.js`,
       },
       rollupOptions: {
-        external: ['vue', '@vue/devtools-api'],
+        external: ['vue', '@vue/devtools-api', 'vue-demi'],
         output: {
           globals: {
             vue: 'Vue',
             '@vue/devtools-api': 'VueDevtoolsApi',
+            'vue-demi': 'VueDemi',
           },
         },
       },

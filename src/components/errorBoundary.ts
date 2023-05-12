@@ -1,4 +1,10 @@
-import { registerDevtools, warn, refreshInspector, addTimeline, VEBOUNDARY_HOOK_KEY } from '@utils';
+import {
+  registerDevtools,
+  warn,
+  refreshInspector,
+  addTimeline,
+  VEBOUNDARY_HOOK_KEY,
+} from '@utils';
 import {
   ComponentPublicInstance,
   defineComponent,
@@ -7,7 +13,7 @@ import {
   provide,
   ref,
   VNode,
-} from 'vue';
+} from 'vue-demi';
 
 export type VueErrorBoundaryProps = {
   propagation?: boolean;
@@ -33,15 +39,15 @@ const ErrorBoundaryComponent = defineComponent({
   name: 'VeBoundary',
   inheritAttrs: false,
   props: {
-    propagation: { type: Boolean, default: false },
-    keepEmit: { type: Boolean, default: false },
+    propagation: {type: Boolean, default: false},
+    keepEmit: {type: Boolean, default: false},
     // eslint-disable-next-line vue/require-default-prop
     include: [Array, RegExp],
     // eslint-disable-next-line vue/require-default-prop
     exclude: [Array, RegExp],
   },
   emits: ['caputred'],
-  setup(props, { slots, emit, attrs }) {
+  setup(props, {slots, emit, attrs}) {
     let label: string | null = null;
     if (__DEV__) {
       const id = attrs?.id as string;
@@ -83,10 +89,10 @@ const ErrorBoundaryComponent = defineComponent({
       error,
     });
 
-    registerDevtools({ error, info: errorInfo });
+    registerDevtools({error, info: errorInfo});
 
     onErrorCaptured(function (err, instance, info) {
-      const { name, message } = err;
+      const {name, message} = err;
       let includeState = true,
         excludeState = true;
 
@@ -115,7 +121,7 @@ const ErrorBoundaryComponent = defineComponent({
         errorInfo.value = info;
       }
       if (captured || (!captured && props.keepEmit)) {
-        emit('caputred', { error: err, instance, info });
+        emit('caputred', {error: err, instance, info});
       }
 
       refreshInspector();
@@ -128,7 +134,7 @@ const ErrorBoundaryComponent = defineComponent({
     return function () {
       return error.value === null
         ? slots.default?.()
-        : slots.fallback?.({ error: error.value, reset });
+        : slots.fallback?.({error: error.value, reset});
     };
   },
 });

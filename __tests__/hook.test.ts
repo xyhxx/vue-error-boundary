@@ -1,8 +1,8 @@
-import { describe, test, beforeEach, expect } from 'vitest';
+import {describe, test, beforeEach, expect} from 'vitest';
 import HookTest from './components/hook.vue';
 import ClickTest from './components/click.vue';
-import { h, defineComponent } from 'vue';
-import { mount } from '@vue/test-utils';
+import {h, defineComponent} from 'vue';
+import {mount} from '@vue/test-utils';
 import ErrorBoundary from '@src';
 
 let App: any;

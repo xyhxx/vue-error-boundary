@@ -6,7 +6,8 @@
   ],
   "globals": {
     "Vi": "readonly",
-    "__DEV__": "readonly"
+    "__DEV__": "readonly",
+    "defineProps": true
   },
   "parser": "vue-eslint-parser",
   "parserOptions": {
