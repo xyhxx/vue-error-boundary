@@ -5,7 +5,7 @@ import Caputre from './components/capture.vue';
 import ClickTypeError from './components/typeError.vue';
 import ClickRefError from './components/refError.vue';
 import {mount} from '@vue/test-utils';
-import {defineComponent, h, onErrorCaptured} from 'vue';
+import {defineComponent, h, onErrorCaptured} from 'vue-demi';
 import {describe, test, beforeEach, expect} from 'vitest';
 
 let App: any;

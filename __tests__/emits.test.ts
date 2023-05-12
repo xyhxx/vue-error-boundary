@@ -6,7 +6,7 @@ import ErrorBoundary, {
 import ClickThrow from './components/click.vue';
 import Caputre from './components/capture.vue';
 import {mount} from '@vue/test-utils';
-import {defineComponent, h} from 'vue';
+import {defineComponent, h} from 'vue-demi';
 import {describe, test, expect} from 'vitest';
 
 const App = defineComponent({
@@ -29,7 +29,7 @@ const App = defineComponent({
   },
 });
 
-describe('ErrorBoundary emit value', async function () {
+describe('ErrorBoundary emit value', function () {
   test('should emit error', async function () {
     const app = mount(App);
 

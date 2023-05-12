@@ -1,6 +1,6 @@
 import ErrorBoundary, {ErrorBoundaryProps} from '@src';
 import {mount, flushPromises} from '@vue/test-utils';
-import {defineComponent, h, ref, Suspense} from 'vue';
+import {defineComponent, h, ref, Suspense} from 'vue-demi';
 import Caputre from './components/capture.vue';
 import NetworkCom from './components/network.vue';
 import {vi, describe, test, expect} from 'vitest';

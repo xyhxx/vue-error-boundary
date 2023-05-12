@@ -8,7 +8,9 @@
     "build:es": "vite build --mode es",
     "build": "pnpm build:ts && pnpm build:umd && pnpm build:es",
     "test": "vitest",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "test:2": "vue-demi-switch 2 vue2 && vitest",
+    "test:3": "vue-demi-switch 3 && vitest"
   },
   "files": [
     "dist"
@@ -59,7 +61,8 @@
     "vitest": "^0.31.0",
     "vue": "^3.3.2",
     "vue-eslint-parser": "^9.2.1",
-    "vue-tsc": "^1.6.4"
+    "vue-tsc": "^1.6.4",
+    "vue2": "npm:vue@2"
   },
   "peerDependencies": {
     "@vue/composition-api": ">=1.0.0",

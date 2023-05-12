@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import axios from 'axios';
-import {reactive} from 'vue';
+import {reactive} from 'vue-demi';
 
 // eslint-disable-next-line no-undef
 defineOptions({name: 'SuspenseWrapper'});

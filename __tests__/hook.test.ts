@@ -1,7 +1,7 @@
 import {describe, test, beforeEach, expect} from 'vitest';
 import HookTest from './components/hook.vue';
 import ClickTest from './components/click.vue';
-import {h, defineComponent} from 'vue';
+import {h, defineComponent} from 'vue-demi';
 import {mount} from '@vue/test-utils';
 import ErrorBoundary from '@src';
 
@@ -28,7 +28,7 @@ describe('useBoundary hook', function () {
   test('error info', async function () {
     const app = mount(App);
 
-    let throwBtn = app.get('#throw');
+    const throwBtn = app.get('#throw');
     await throwBtn.trigger('click');
 
     const error = app.find('#error_info');

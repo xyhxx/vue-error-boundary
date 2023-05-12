@@ -2,7 +2,7 @@ import ErrorBoundary, {ErrorBoundaryProps} from '@src';
 import ClickThrow from './components/click.vue';
 import Caputre from './components/capture.vue';
 import {mount} from '@vue/test-utils';
-import {defineComponent, h, onErrorCaptured} from 'vue';
+import {defineComponent, h, onErrorCaptured} from 'vue-demi';
 import {describe, test, beforeEach, expect, vi} from 'vitest';
 
 const fn = vi.fn();

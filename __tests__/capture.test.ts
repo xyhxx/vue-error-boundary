@@ -3,7 +3,7 @@ import {describe, test, beforeEach, expect} from 'vitest';
 import ClickThrow from './components/click.vue';
 import Caputre from './components/capture.vue';
 import ErrorBoundary, {ErrorBoundaryProps} from '@src';
-import {defineComponent, h} from 'vue';
+import {defineComponent, h} from 'vue-demi';
 
 let App: any;
 
