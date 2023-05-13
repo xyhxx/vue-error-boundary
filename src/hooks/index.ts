@@ -8,6 +8,6 @@ type BoundaryState = {
 
 export function useBoundary() {
   const info = inject<BoundaryState>(VEBOUNDARY_HOOK_KEY);
-  if (!info) warn('Please use useboundary in VeErrorBoundary');
+  if (!info) warn('Please use useBoundary in ErrorBoundary');
   return info as BoundaryState;
 }
