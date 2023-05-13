@@ -59,7 +59,6 @@
     "vitest": "^0.12.9",
     "vue": "^3.2.34",
     "vue-eslint-parser": "^9.0.2",
-    "vue-query": "^1.25.0",
     "vue-tsc": "^0.34.15"
   },
   "peerDependencies": {

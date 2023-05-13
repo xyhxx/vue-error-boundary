@@ -27,6 +27,8 @@ describe('onErrorCaptured propagation', function () {
         onErrorCaptured(function (errors) {
           fn();
           props.cb?.(errors);
+
+          return false;
         });
 
         return function () {

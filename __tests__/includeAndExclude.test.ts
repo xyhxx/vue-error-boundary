@@ -5,7 +5,7 @@ import Caputre from './components/capture.vue';
 import ClickTypeError from './components/typeError.vue';
 import ClickRefError from './components/refError.vue';
 import { mount } from '@vue/test-utils';
-import { defineComponent, h } from 'vue';
+import { defineComponent, h, onErrorCaptured } from 'vue';
 import { describe, test, beforeEach, expect } from 'vitest';
 
 let App: any;
@@ -23,6 +23,8 @@ describe('include, exclude, keepEmit', function () {
         const emitCaptured: VueErrorBoundaryEmit = function (error) {
           emit('captured', error);
         };
+
+        onErrorCaptured(() => false);
 
         return function () {
           return h(
